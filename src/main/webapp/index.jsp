@@ -372,6 +372,21 @@
         }else{
             show_validate_msg("#bookName_add_input", "success", "书名合法");
         };
+        regName=/(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;
+        if(!regName.test(price)){
+            show_validate_msg("#price_add_input", "error", "价格不合法");
+            return false;
+        }else{
+            show_validate_msg("#price_add_input", "success", "");
+        };
+        regName=/^([\u4e00-\u9fa5a-zA-Z]{1,20})$/;
+        if(!regName.test(author)){
+
+            show_validate_msg("#author_add_input", "error", "作者名不合法");
+            return false;
+        }else{
+            show_validate_msg("#author_add_input", "success", "");
+        };
         return true;
 
 

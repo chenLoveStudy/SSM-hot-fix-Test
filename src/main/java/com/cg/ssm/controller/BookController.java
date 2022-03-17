@@ -8,8 +8,10 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,11 +79,18 @@ public class BookController {
     }
 
     //restful风格,post请求代表保存
+//   JSR303这些校验注解仅仅会在Controller层创建入参对象的时候生效，对于Service或Dao层中的对象是无效的。
+
     //保存新增的图书
     @ResponseBody
     @RequestMapping(value = "/books",method = RequestMethod.POST)
-    public MSG saveBook(Book book) {//自动封装(需要表单中的name与实体类中的属性名相同)
+    public MSG saveBook(@Valid Book book,BindingResult result) {//自动封装(需要表单中的name与实体类中的属性名相同)
+        System.out.println(1111);
         System.out.println("将要插入的数据"+book);
+        if (result.hasErrors()) {
+            System.out.println("后端JSR303验证不通过");
+            return MSG.fail();
+        }
         boolean b = bookService.insertBook(book);
        return MSG.succeed();
 

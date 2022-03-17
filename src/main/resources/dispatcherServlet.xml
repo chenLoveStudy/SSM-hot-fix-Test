@@ -20,7 +20,7 @@
 <!--    如果在web.xml中servlet-mapping的url-pattern设置的是/,而不是如.do。表示将所有的文件，包含静态资源文件都交给spring mvc处理。
         就需要用到<mvc:annotation-driven />了。
 如果不加，DispatcherServlet则无法区分请求是资源文件还是mvc的注解，而导致controller的请求报404错误。-->
-    <mvc:annotation-driven>
+    <mvc:annotation-driven validator="validator">
 <!--        用alibab的依赖时需配置json的驱动-->
         <mvc:message-converters register-defaults="true">
         <!-- 配置Fastjson支持 -->
@@ -34,4 +34,13 @@
         </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
+    <!-- 注册自己配置的校验器 -->
+<!--    <mvc:annotation-driven validator="validator"/>-->
+
+    <!-- 配置校验器 在上面的注解驱动上引用validator-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <!-- 校验器，使用hibernate校验器 -->
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+    </bean>
 </beans>

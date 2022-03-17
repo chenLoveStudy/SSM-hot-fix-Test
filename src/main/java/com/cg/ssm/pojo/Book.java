@@ -1,17 +1,21 @@
 package com.cg.ssm.pojo;
 
-import java.math.BigDecimal;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class Book {
     private Integer id;
-
+    @NotNull(message = "图书名不能为空")
+    @Pattern(regexp = "^[\\u4E00-\\u9FA5A-Za-z0-9]+$",message = "图书名不能有特殊符号和空格")
     private String name;
-
-    private BigDecimal price;
-
+    @NotNull(message = "价格不能为空")
+    private double price;
+    @NotNull
+    @Pattern(regexp = "^([\\u4e00-\\u9fa5a-zA-Z]{1,20})$",message = "作者名不能包含特殊符号和数字")
     private String author;
-
-    private Integer sales;
+//    Integer类型无法用pattern注解
+//    @NotNull
+    private Integer sales;//插入时没有选择销量,所以销量不作约束
 
     private Integer stock;
 
@@ -44,7 +48,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(Integer id, String name, BigDecimal price, String author, Integer sales, Integer fid) {
+    public Book(Integer id, String name, double price, String author, Integer sales, Integer fid) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -69,11 +73,11 @@ public class Book {
         this.name = name == null ? null : name.trim();
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
