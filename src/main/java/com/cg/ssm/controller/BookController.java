@@ -85,7 +85,6 @@ public class BookController {
     @ResponseBody
     @RequestMapping(value = "/books",method = RequestMethod.POST)
     public MSG saveBook(@Valid Book book,BindingResult result) {//自动封装(需要表单中的name与实体类中的属性名相同)
-        System.out.println(1111);
         System.out.println("将要插入的数据"+book);
         if (result.hasErrors()) {
             System.out.println("后端JSR303验证不通过");
