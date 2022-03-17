@@ -183,6 +183,7 @@
     });
 
     function to_page(pn){
+        $("#check_all").prop("checked",false);
         $.ajax({
             url:"${APP_PATH}/books",
             data:"pn="+pn,
@@ -618,7 +619,12 @@
 
     //点击全部删除，就批量删除
     $("#emp_delete_all_btn").click(function(){
-        //
+        //判断当前选中几个元素
+        var len = $(".check_item:checked").length;
+        if (len==0){
+            alert("你还没选择要删除的元素");
+            return;
+        }
         var bookNames = "";
         var del_idstr = "";
         $.each($(".check_item:checked"),function(){
