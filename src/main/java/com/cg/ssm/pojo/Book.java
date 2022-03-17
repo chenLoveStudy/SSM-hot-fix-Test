@@ -15,7 +15,7 @@ public class Book {
     private String author;
 //    Integer类型无法用pattern注解
 //    @NotNull
-    private Integer sales;//插入时没有选择销量,所以销量不作约束
+    private Integer sales;//插入时没有选择销量,所以销量不作约束  hot-fix test
 
     private Integer stock;
 
